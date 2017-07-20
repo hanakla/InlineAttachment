@@ -293,7 +293,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: "onFileUploadError",
 	    value: function onFileUploadError(xhr) {
 	      if (this.settings.onFileUploadError.call(this, xhr) !== false) {
-	        var text = this.editor.getValue().replace(this.lastValue, "");
+	        var text = this.editor.getValue().replace(this.lastValue, this.settings.errorText);
 	        this.editor.setValue(text);
 	      }
 	    }
