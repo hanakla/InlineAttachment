@@ -6,16 +6,15 @@ const isDev = ENV === 'development';
 const base = {
   watch: isDev,
   devtool: isDev ? 'inline-source-map' : '',
-  debug: isDev,
   output: {
     path: __dirname + "/dist",
     filename: "[name].js",
   },
   resolve: {
-    extensions: ['', '.js']
+    extensions: ['.js']
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         include: [
