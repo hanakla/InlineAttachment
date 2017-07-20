@@ -1,683 +1,711 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
-/******/ 			exports: {},
-/******/ 			id: moduleId,
-/******/ 			loaded: false
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
-
+/******/ 		module.l = true;
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 
-	var _utils = __webpack_require__(1);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-	var _utils2 = _interopRequireDefault(_utils);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _input = __webpack_require__(2);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var _input2 = _interopRequireDefault(_input);
+var Utils = function () {
+  function Utils() {
+    _classCallCheck(this, Utils);
+  }
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  _createClass(Utils, null, [{
+    key: "merge",
 
-	var directiveName = 'inlineattachment';
-	var _module = angular.module(directiveName, []);
 
-	/**
-	 * Read all parameters from the given attributes object
-	 *
-	 * @param  {Object} obj attributes
-	 * @param scope Angular Scope
-	 * @return {Object}
-	 */
-	function readParameters(obj, scope) {
-	  var result = {},
-	      attrs = obj.$attr,
-	      option,
-	      value;
+    /**
+     * Simple function to merge the given objects
+     *
+     * @returns {Object}
+     */
+    value: function merge() {
+      var result = {};
 
-	  var _iteratorNormalCompletion = true;
-	  var _didIteratorError = false;
-	  var _iteratorError = undefined;
+      for (var _len = arguments.length, objects = Array(_len), _key = 0; _key < _len; _key++) {
+        objects[_key] = arguments[_key];
+      }
 
-	  try {
-	    for (var _iterator = Object.keys(attrs)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      var key = _step.value;
+      for (var i = objects.length - 1; i >= 0; i--) {
+        var obj = objects[i];
+        for (var k in obj) {
+          if (obj.hasOwnProperty(k)) {
+            result[k] = obj[k];
+          }
+        }
+      }
+      return result;
+    }
 
-	      option = _utils2.default.lcfirst(key.substr(directiveName.length));
-	      value = obj[key];
-	      // Check if the given key is a valid string type, not empty and starts with the attribute name
-	      if (option.length > 0 && key.substring(0, directiveName.length) === directiveName) {
-	        result[option] = value;
-	        if (typeof scope[value] === 'function') {
-	          result[option] = scope[value];
-	        }
-	      }
-	    }
-	  } catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	  } finally {
-	    try {
-	      if (!_iteratorNormalCompletion && _iterator.return) {
-	        _iterator.return();
-	      }
-	    } finally {
-	      if (_didIteratorError) {
-	        throw _iteratorError;
-	      }
-	    }
-	  }
+    /**
+     * @param str
+     * @returns {string} Returns the string with the first letter as lowercase
+     */
 
-	  return result;
-	}
+  }, {
+    key: "lcfirst",
+    value: function lcfirst(str) {
+      return str.charAt(0).toLowerCase() + str.substr(1);
+    }
 
-	_module.directive(directiveName, function () {
-	  return function (scope, element, attrs) {
-	    var options = readParameters(attrs, scope);
-	    new _input2.default(element[0], options);
-	  };
-	});
+    /**
+     * Append a line of text at the bottom, ensuring there aren't unnecessary newlines
+     *
+     * @param {String} appended Current content
+     * @param {String} previous Value which should be appended after the current content
+     */
 
-	exports.default = _module;
+  }, {
+    key: "appendInItsOwnLine",
+    value: function appendInItsOwnLine(previous, appended) {
+      return (previous + "\n\n[[D]]" + appended).replace(/(\n{2,})\[\[D\]\]/, "\n\n").replace(/^(\n*)/, "");
+    }
+
+    /**
+     * Inserts the given value at the current cursor position of the textarea element
+     *
+     * @param  {HtmlElement} el
+     * @param  {String} text Text which will be inserted at the cursor position
+     */
+
+  }, {
+    key: "insertTextAtCursor",
+    value: function insertTextAtCursor(el, text) {
+      var scrollPos = el.scrollTop,
+          strPos = 0,
+          browser = false,
+          range;
+
+      if (el.selectionStart || el.selectionStart === '0') {
+        browser = "ff";
+      } else if (document.selection) {
+        browser = "ie";
+      }
+
+      if (browser === "ie") {
+        el.focus();
+        range = document.selection.createRange();
+        range.moveStart('character', -el.value.length);
+        strPos = range.text.length;
+      } else if (browser === "ff") {
+        strPos = el.selectionStart;
+      }
+
+      var front = el.value.substring(0, strPos);
+      var back = el.value.substring(strPos, el.value.length);
+      el.value = front + text + back;
+      strPos = strPos + text.length;
+      if (browser === "ie") {
+        el.focus();
+        range = document.selection.createRange();
+        range.moveStart('character', -el.value.length);
+        range.moveStart('character', strPos);
+        range.moveEnd('character', 0);
+        range.select();
+      } else if (browser === "ff") {
+        el.selectionStart = strPos;
+        el.selectionEnd = strPos;
+        el.focus();
+      }
+      el.scrollTop = scrollPos;
+    }
+  }]);
+
+  return Utils;
+}();
+
+exports.default = Utils;
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var Utils = function () {
-	  function Utils() {
-	    _classCallCheck(this, Utils);
-	  }
-
-	  _createClass(Utils, null, [{
-	    key: "merge",
+"use strict";
 
 
-	    /**
-	     * Simple function to merge the given objects
-	     *
-	     * @returns {Object}
-	     */
-	    value: function merge() {
-	      var result = {};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-	      for (var _len = arguments.length, objects = Array(_len), _key = 0; _key < _len; _key++) {
-	        objects[_key] = arguments[_key];
-	      }
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	      for (var i = objects.length - 1; i >= 0; i--) {
-	        var obj = objects[i];
-	        for (var k in obj) {
-	          if (obj.hasOwnProperty(k)) {
-	            result[k] = obj[k];
-	          }
-	        }
-	      }
-	      return result;
-	    }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	    /**
-	     * @param str
-	     * @returns {string} Returns the string with the first letter as lowercase
-	     */
+var _utils = __webpack_require__(0);
 
-	  }, {
-	    key: "lcfirst",
-	    value: function lcfirst(str) {
-	      return str.charAt(0).toLowerCase() + str.substr(1);
-	    }
+var _utils2 = _interopRequireDefault(_utils);
 
-	    /**
-	     * Append a line of text at the bottom, ensuring there aren't unnecessary newlines
-	     *
-	     * @param {String} appended Current content
-	     * @param {String} previous Value which should be appended after the current content
-	     */
+var _defaults = __webpack_require__(2);
 
-	  }, {
-	    key: "appendInItsOwnLine",
-	    value: function appendInItsOwnLine(previous, appended) {
-	      return (previous + "\n\n[[D]]" + appended).replace(/(\n{2,})\[\[D\]\]/, "\n\n").replace(/^(\n*)/, "");
-	    }
+var _defaults2 = _interopRequireDefault(_defaults);
 
-	    /**
-	     * Inserts the given value at the current cursor position of the textarea element
-	     *
-	     * @param  {HtmlElement} el
-	     * @param  {String} text Text which will be inserted at the cursor position
-	     */
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	  }, {
-	    key: "insertTextAtCursor",
-	    value: function insertTextAtCursor(el, text) {
-	      var scrollPos = el.scrollTop,
-	          strPos = 0,
-	          browser = false,
-	          range;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	      if (el.selectionStart || el.selectionStart === '0') {
-	        browser = "ff";
-	      } else if (document.selection) {
-	        browser = "ie";
-	      }
+var InlineAttachment = function () {
+  function InlineAttachment(instance, options) {
+    _classCallCheck(this, InlineAttachment);
 
-	      if (browser === "ie") {
-	        el.focus();
-	        range = document.selection.createRange();
-	        range.moveStart('character', -el.value.length);
-	        strPos = range.text.length;
-	      } else if (browser === "ff") {
-	        strPos = el.selectionStart;
-	      }
+    this.settings = _utils2.default.merge(options, _defaults2.default);
+    this.editor = instance;
+    this.filenameTag = '{filename}';
+    this.lastValue = null;
+  }
 
-	      var front = el.value.substring(0, strPos);
-	      var back = el.value.substring(strPos, el.value.length);
-	      el.value = front + text + back;
-	      strPos = strPos + text.length;
-	      if (browser === "ie") {
-	        el.focus();
-	        range = document.selection.createRange();
-	        range.moveStart('character', -el.value.length);
-	        range.moveStart('character', strPos);
-	        range.moveEnd('character', 0);
-	        range.select();
-	      } else if (browser === "ff") {
-	        el.selectionStart = strPos;
-	        el.selectionEnd = strPos;
-	        el.focus();
-	      }
-	      el.scrollTop = scrollPos;
-	    }
-	  }]);
+  /**
+   * Uploads the blob
+   *
+   * @param  {Blob} file blob data received from event.dataTransfer object
+   * @return {XMLHttpRequest} request object which sends the file
+   */
 
-	  return Utils;
-	}();
 
-	exports.default = Utils;
+  _createClass(InlineAttachment, [{
+    key: "uploadFile",
+    value: function uploadFile(file) {
+      var me = this,
+          formData = new FormData(),
+          xhr = new XMLHttpRequest(),
+          settings = this.settings,
+          extension = settings.defaultExtension || settings.defualtExtension;
+
+      if (typeof settings.setupFormData === 'function') {
+        settings.setupFormData(formData, file);
+      }
+
+      // Attach the file. If coming from clipboard, add a default filename (only works in Chrome for now)
+      // http://stackoverflow.com/questions/6664967/how-to-give-a-blob-uploaded-as-formdata-a-file-name
+      if (file.name) {
+        var fileNameMatches = file.name.match(/\.(.+)$/);
+        if (fileNameMatches) {
+          extension = fileNameMatches[1];
+        }
+      }
+
+      var remoteFilename = "image-" + Date.now() + "." + extension;
+      if (typeof settings.remoteFilename === 'function') {
+        remoteFilename = settings.remoteFilename(file);
+      }
+
+      formData.append(settings.uploadFieldName, file, remoteFilename);
+
+      // Append the extra parameters to the formdata
+      if (_typeof(settings.extraParams) === "object") {
+        for (var key in settings.extraParams) {
+          if (settings.extraParams.hasOwnProperty(key)) {
+            formData.append(key, settings.extraParams[key]);
+          }
+        }
+      }
+
+      xhr.open('POST', settings.uploadUrl);
+
+      // Add any available extra headers
+      if (_typeof(settings.extraHeaders) === "object") {
+        for (var header in settings.extraHeaders) {
+          if (settings.extraHeaders.hasOwnProperty(header)) {
+            xhr.setRequestHeader(header, settings.extraHeaders[header]);
+          }
+        }
+      }
+
+      xhr.onload = function () {
+        // If HTTP status is OK or Created
+        if (xhr.status === 200 || xhr.status === 201) {
+          me.onFileUploadResponse(xhr);
+        } else {
+          me.onFileUploadError(xhr);
+        }
+      };
+      if (settings.beforeFileUpload(xhr) !== false) {
+        xhr.send(formData);
+      }
+      return xhr;
+    }
+
+    /**
+     * Returns if the given file is allowed to handle
+     *
+     * @param {File} file clipboard data file
+     */
+
+  }, {
+    key: "isFileAllowed",
+    value: function isFileAllowed(file) {
+      if (file.kind === 'string') {
+        return false;
+      }
+      if (this.settings.allowedTypes.indexOf('*') === 0) {
+        return true;
+      } else {
+        return this.settings.allowedTypes.indexOf(file.type) >= 0;
+      }
+    }
+
+    /**
+     * Handles upload response
+     *
+     * @param  {XMLHttpRequest} xhr
+     * @return {void}
+     */
+
+  }, {
+    key: "onFileUploadResponse",
+    value: function onFileUploadResponse(xhr) {
+      if (this.settings.onFileUploadResponse.call(this, xhr) !== false) {
+        var result = JSON.parse(xhr.responseText),
+            filename = result[this.settings.jsonFieldName];
+
+        if (result && filename) {
+          var newValue;
+          if (typeof this.settings.urlText === 'function') {
+            newValue = this.settings.urlText.call(this, filename, result);
+          } else {
+            newValue = this.settings.urlText.replace(this.filenameTag, filename);
+          }
+          var text = this.editor.getValue().replace(this.lastValue, newValue);
+          this.editor.setValue(text);
+          this.settings.onFileUploaded.call(this, filename);
+        }
+      }
+    }
+
+    /**
+     * Called when a file has failed to upload
+     *
+     * @param  {XMLHttpRequest} xhr
+     * @return {void}
+     */
+
+  }, {
+    key: "onFileUploadError",
+    value: function onFileUploadError(xhr) {
+      if (this.settings.onFileUploadError.call(this, xhr) !== false) {
+        var text = this.editor.getValue().replace(this.lastValue, this.settings.errorText);
+        this.editor.setValue(text);
+      }
+    }
+
+    /**
+     * Called when a file has been inserted, either by drop or paste
+     *
+     * @param  {File} file
+     * @return {void}
+     */
+
+  }, {
+    key: "onFileInserted",
+    value: function onFileInserted(file) {
+      if (this.settings.onFileReceived.call(this, file) !== false) {
+        this.lastValue = this.settings.progressText;
+        this.editor.insertValue(this.lastValue);
+      }
+    }
+
+    /**
+     * Called when a paste event occured
+     * @param  {Event} e
+     * @return {Boolean} if the event was handled
+     */
+
+  }, {
+    key: "onPaste",
+    value: function onPaste(e) {
+      var result = false,
+          clipboardData = e.clipboardData,
+          items;
+
+      if ((typeof clipboardData === "undefined" ? "undefined" : _typeof(clipboardData)) === "object") {
+        items = clipboardData.items || clipboardData.files || [];
+
+        for (var i = 0; i < items.length; i++) {
+          var item = items[i];
+          if (this.isFileAllowed(item)) {
+            result = true;
+            this.onFileInserted(item.getAsFile());
+            this.uploadFile(item.getAsFile());
+          }
+        }
+      }
+
+      if (result) {
+        e.preventDefault();
+      }
+
+      return result;
+    }
+
+    /**
+     * Called when a drop event occures
+     * @param  {Event} e
+     * @return {Boolean} if the event was handled
+     */
+
+  }, {
+    key: "onDrop",
+    value: function onDrop(e) {
+      var result = false;
+      for (var i = 0; i < e.dataTransfer.files.length; i++) {
+        var file = e.dataTransfer.files[i];
+        if (this.isFileAllowed(file)) {
+          result = true;
+          this.onFileInserted(file);
+          this.uploadFile(file);
+        }
+      }
+
+      return result;
+    }
+  }]);
+
+  return InlineAttachment;
+}();
+
+exports.default = InlineAttachment;
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Default Options
+ */
+exports.default = {
+  /**
+   * URL where the file will be send
+   */
+  uploadUrl: 'upload_attachment.php',
 
-	var _utils = __webpack_require__(1);
+  /**
+   * Which method will be used to send the file to the upload URL
+   */
+  uploadMethod: 'POST',
 
-	var _utils2 = _interopRequireDefault(_utils);
+  /**
+   * Name in which the file will be placed
+   */
+  uploadFieldName: 'file',
 
-	var _inlineAttachment = __webpack_require__(3);
+  /**
+   * Extension which will be used when a file extension could not
+   * be detected
+   */
+  defaultExtension: 'png',
 
-	var _inlineAttachment2 = _interopRequireDefault(_inlineAttachment);
+  /**
+   * JSON field which refers to the uploaded file URL
+   */
+  jsonFieldName: 'filename',
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  /**
+   * Allowed MIME types
+   */
+  allowedTypes: ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'],
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  /**
+   * Text which will be inserted when dropping or pasting a file.
+   * Acts as a placeholder which will be replaced when the file is done with uploading
+   */
+  progressText: '![Uploading file...]()',
 
-	var InputInlineAttachment = function () {
-	  function InputInlineAttachment(instance, options) {
-	    _classCallCheck(this, InputInlineAttachment);
+  /**
+   * When a file has successfully been uploaded the progressText
+   * will be replaced by the urlText, the {filename} tag will be replaced
+   * by the filename that has been returned by the server
+   */
+  urlText: "![file]({filename})",
 
-	    this.instance = instance;
-	    this.options = options;
-	    this.bind();
-	  }
+  /**
+   * Text which will be used when uploading has failed
+   */
+  errorText: "Error uploading file",
 
-	  _createClass(InputInlineAttachment, [{
-	    key: "getValue",
-	    value: function getValue() {
-	      return this.instance.value;
-	    }
-	  }, {
-	    key: "insertValue",
-	    value: function insertValue(val) {
-	      _utils2.default.insertTextAtCursor(this.instance, val);
-	    }
-	  }, {
-	    key: "setValue",
-	    value: function setValue(val) {
-	      this.instance.value = val;
-	    }
-	  }, {
-	    key: "bind",
-	    value: function bind() {
-	      var inlineAttachment = new _inlineAttachment2.default(this, this.options);
+  /**
+   * Extra parameters which will be send when uploading a file
+   */
+  extraParams: {},
 
-	      this.instance.addEventListener('paste', function (e) {
-	        inlineAttachment.onPaste(e);
-	      }, false);
-	      this.instance.addEventListener('drop', function (e) {
-	        e.stopPropagation();
-	        e.preventDefault();
-	        inlineAttachment.onDrop(e);
-	      }, false);
-	      this.instance.addEventListener('dragenter', function (e) {
-	        e.stopPropagation();
-	        e.preventDefault();
-	      }, false);
-	      this.instance.addEventListener('dragover', function (e) {
-	        e.stopPropagation();
-	        e.preventDefault();
-	      }, false);
-	    }
-	  }]);
+  /**
+   * Extra headers which will be send when uploading a file
+   */
+  extraHeaders: {},
 
-	  return InputInlineAttachment;
-	}();
+  /**
+   * Before the file is send
+   */
+  beforeFileUpload: function beforeFileUpload() {
+    return true;
+  },
 
-	exports.default = InputInlineAttachment;
+  /**
+   * Triggers when a file is dropped or pasted
+   */
+  onFileReceived: function onFileReceived() {},
+
+  /**
+   * Custom upload handler
+   *
+   * @return {Boolean} when false is returned it will prevent default upload behavior
+   */
+  onFileUploadResponse: function onFileUploadResponse() {
+    return true;
+  },
+
+  /**
+   * Custom error handler. Runs after removing the placeholder text and before the alert().
+   * Return false from this function to prevent the alert dialog.
+   *
+   * @return {Boolean} when false is returned it will prevent default error behavior
+   */
+  onFileUploadError: function onFileUploadError() {
+    return true;
+  },
+
+  /**
+   * When a file has succesfully been uploaded
+   */
+  onFileUploaded: function onFileUploaded() {}
+};
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _utils = __webpack_require__(1);
-
-	var _utils2 = _interopRequireDefault(_utils);
-
-	var _defaults = __webpack_require__(4);
-
-	var _defaults2 = _interopRequireDefault(_defaults);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var InlineAttachment = function () {
-	  function InlineAttachment(instance, options) {
-	    _classCallCheck(this, InlineAttachment);
-
-	    this.settings = _utils2.default.merge(options, _defaults2.default);
-	    this.editor = instance;
-	    this.filenameTag = '{filename}';
-	    this.lastValue = null;
-	  }
-
-	  /**
-	   * Uploads the blob
-	   *
-	   * @param  {Blob} file blob data received from event.dataTransfer object
-	   * @return {XMLHttpRequest} request object which sends the file
-	   */
+"use strict";
 
 
-	  _createClass(InlineAttachment, [{
-	    key: "uploadFile",
-	    value: function uploadFile(file) {
-	      var me = this,
-	          formData = new FormData(),
-	          xhr = new XMLHttpRequest(),
-	          settings = this.settings,
-	          extension = settings.defaultExtension || settings.defualtExtension;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-	      if (typeof settings.setupFormData === 'function') {
-	        settings.setupFormData(formData, file);
-	      }
+var _utils = __webpack_require__(0);
 
-	      // Attach the file. If coming from clipboard, add a default filename (only works in Chrome for now)
-	      // http://stackoverflow.com/questions/6664967/how-to-give-a-blob-uploaded-as-formdata-a-file-name
-	      if (file.name) {
-	        var fileNameMatches = file.name.match(/\.(.+)$/);
-	        if (fileNameMatches) {
-	          extension = fileNameMatches[1];
-	        }
-	      }
+var _utils2 = _interopRequireDefault(_utils);
 
-	      var remoteFilename = "image-" + Date.now() + "." + extension;
-	      if (typeof settings.remoteFilename === 'function') {
-	        remoteFilename = settings.remoteFilename(file);
-	      }
+var _input = __webpack_require__(4);
 
-	      formData.append(settings.uploadFieldName, file, remoteFilename);
+var _input2 = _interopRequireDefault(_input);
 
-	      // Append the extra parameters to the formdata
-	      if (_typeof(settings.extraParams) === "object") {
-	        for (var key in settings.extraParams) {
-	          if (settings.extraParams.hasOwnProperty(key)) {
-	            formData.append(key, settings.extraParams[key]);
-	          }
-	        }
-	      }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	      xhr.open('POST', settings.uploadUrl);
+var directiveName = 'inlineattachment';
+var _module = angular.module(directiveName, []);
 
-	      // Add any available extra headers
-	      if (_typeof(settings.extraHeaders) === "object") {
-	        for (var header in settings.extraHeaders) {
-	          if (settings.extraHeaders.hasOwnProperty(header)) {
-	            xhr.setRequestHeader(header, settings.extraHeaders[header]);
-	          }
-	        }
-	      }
+/**
+ * Read all parameters from the given attributes object
+ *
+ * @param  {Object} obj attributes
+ * @param scope Angular Scope
+ * @return {Object}
+ */
+function readParameters(obj, scope) {
+  var result = {},
+      attrs = obj.$attr,
+      option,
+      value;
 
-	      xhr.onload = function () {
-	        // If HTTP status is OK or Created
-	        if (xhr.status === 200 || xhr.status === 201) {
-	          me.onFileUploadResponse(xhr);
-	        } else {
-	          me.onFileUploadError(xhr);
-	        }
-	      };
-	      if (settings.beforeFileUpload(xhr) !== false) {
-	        xhr.send(formData);
-	      }
-	      return xhr;
-	    }
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
 
-	    /**
-	     * Returns if the given file is allowed to handle
-	     *
-	     * @param {File} file clipboard data file
-	     */
+  try {
+    for (var _iterator = Object.keys(attrs)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var key = _step.value;
 
-	  }, {
-	    key: "isFileAllowed",
-	    value: function isFileAllowed(file) {
-	      if (file.kind === 'string') {
-	        return false;
-	      }
-	      if (this.settings.allowedTypes.indexOf('*') === 0) {
-	        return true;
-	      } else {
-	        return this.settings.allowedTypes.indexOf(file.type) >= 0;
-	      }
-	    }
+      option = _utils2.default.lcfirst(key.substr(directiveName.length));
+      value = obj[key];
+      // Check if the given key is a valid string type, not empty and starts with the attribute name
+      if (option.length > 0 && key.substring(0, directiveName.length) === directiveName) {
+        result[option] = value;
+        if (typeof scope[value] === 'function') {
+          result[option] = scope[value];
+        }
+      }
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
 
-	    /**
-	     * Handles upload response
-	     *
-	     * @param  {XMLHttpRequest} xhr
-	     * @return {void}
-	     */
+  return result;
+}
 
-	  }, {
-	    key: "onFileUploadResponse",
-	    value: function onFileUploadResponse(xhr) {
-	      if (this.settings.onFileUploadResponse.call(this, xhr) !== false) {
-	        var result = JSON.parse(xhr.responseText),
-	            filename = result[this.settings.jsonFieldName];
+_module.directive(directiveName, function () {
+  return function (scope, element, attrs) {
+    var options = readParameters(attrs, scope);
+    new _input2.default(element[0], options);
+  };
+});
 
-	        if (result && filename) {
-	          var newValue;
-	          if (typeof this.settings.urlText === 'function') {
-	            newValue = this.settings.urlText.call(this, filename, result);
-	          } else {
-	            newValue = this.settings.urlText.replace(this.filenameTag, filename);
-	          }
-	          var text = this.editor.getValue().replace(this.lastValue, newValue);
-	          this.editor.setValue(text);
-	          this.settings.onFileUploaded.call(this, filename);
-	        }
-	      }
-	    }
-
-	    /**
-	     * Called when a file has failed to upload
-	     *
-	     * @param  {XMLHttpRequest} xhr
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "onFileUploadError",
-	    value: function onFileUploadError(xhr) {
-	      if (this.settings.onFileUploadError.call(this, xhr) !== false) {
-	        var text = this.editor.getValue().replace(this.lastValue, this.settings.errorText);
-	        this.editor.setValue(text);
-	      }
-	    }
-
-	    /**
-	     * Called when a file has been inserted, either by drop or paste
-	     *
-	     * @param  {File} file
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "onFileInserted",
-	    value: function onFileInserted(file) {
-	      if (this.settings.onFileReceived.call(this, file) !== false) {
-	        this.lastValue = this.settings.progressText;
-	        this.editor.insertValue(this.lastValue);
-	      }
-	    }
-
-	    /**
-	     * Called when a paste event occured
-	     * @param  {Event} e
-	     * @return {Boolean} if the event was handled
-	     */
-
-	  }, {
-	    key: "onPaste",
-	    value: function onPaste(e) {
-	      var result = false,
-	          clipboardData = e.clipboardData,
-	          items;
-
-	      if ((typeof clipboardData === "undefined" ? "undefined" : _typeof(clipboardData)) === "object") {
-	        items = clipboardData.items || clipboardData.files || [];
-
-	        for (var i = 0; i < items.length; i++) {
-	          var item = items[i];
-	          if (this.isFileAllowed(item)) {
-	            result = true;
-	            this.onFileInserted(item.getAsFile());
-	            this.uploadFile(item.getAsFile());
-	          }
-	        }
-	      }
-
-	      if (result) {
-	        e.preventDefault();
-	      }
-
-	      return result;
-	    }
-
-	    /**
-	     * Called when a drop event occures
-	     * @param  {Event} e
-	     * @return {Boolean} if the event was handled
-	     */
-
-	  }, {
-	    key: "onDrop",
-	    value: function onDrop(e) {
-	      var result = false;
-	      for (var i = 0; i < e.dataTransfer.files.length; i++) {
-	        var file = e.dataTransfer.files[i];
-	        if (this.isFileAllowed(file)) {
-	          result = true;
-	          this.onFileInserted(file);
-	          this.uploadFile(file);
-	        }
-	      }
-
-	      return result;
-	    }
-	  }]);
-
-	  return InlineAttachment;
-	}();
-
-	exports.default = InlineAttachment;
+exports.default = _module;
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+"use strict";
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/**
-	 * Default Options
-	 */
-	exports.default = {
-	  /**
-	   * URL where the file will be send
-	   */
-	  uploadUrl: 'upload_attachment.php',
 
-	  /**
-	   * Which method will be used to send the file to the upload URL
-	   */
-	  uploadMethod: 'POST',
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-	  /**
-	   * Name in which the file will be placed
-	   */
-	  uploadFieldName: 'file',
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	  /**
-	   * Extension which will be used when a file extension could not
-	   * be detected
-	   */
-	  defaultExtension: 'png',
+var _utils = __webpack_require__(0);
 
-	  /**
-	   * JSON field which refers to the uploaded file URL
-	   */
-	  jsonFieldName: 'filename',
+var _utils2 = _interopRequireDefault(_utils);
 
-	  /**
-	   * Allowed MIME types
-	   */
-	  allowedTypes: ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'],
+var _inlineAttachment = __webpack_require__(1);
 
-	  /**
-	   * Text which will be inserted when dropping or pasting a file.
-	   * Acts as a placeholder which will be replaced when the file is done with uploading
-	   */
-	  progressText: '![Uploading file...]()',
+var _inlineAttachment2 = _interopRequireDefault(_inlineAttachment);
 
-	  /**
-	   * When a file has successfully been uploaded the progressText
-	   * will be replaced by the urlText, the {filename} tag will be replaced
-	   * by the filename that has been returned by the server
-	   */
-	  urlText: "![file]({filename})",
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	  /**
-	   * Text which will be used when uploading has failed
-	   */
-	  errorText: "Error uploading file",
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	  /**
-	   * Extra parameters which will be send when uploading a file
-	   */
-	  extraParams: {},
+var InputInlineAttachment = function () {
+  function InputInlineAttachment(instance, options) {
+    _classCallCheck(this, InputInlineAttachment);
 
-	  /**
-	   * Extra headers which will be send when uploading a file
-	   */
-	  extraHeaders: {},
+    this.instance = instance;
+    this.options = options;
+    this.bind();
+  }
 
-	  /**
-	   * Before the file is send
-	   */
-	  beforeFileUpload: function beforeFileUpload() {
-	    return true;
-	  },
+  _createClass(InputInlineAttachment, [{
+    key: "getValue",
+    value: function getValue() {
+      return this.instance.value;
+    }
+  }, {
+    key: "insertValue",
+    value: function insertValue(val) {
+      _utils2.default.insertTextAtCursor(this.instance, val);
+    }
+  }, {
+    key: "setValue",
+    value: function setValue(val) {
+      this.instance.value = val;
+    }
+  }, {
+    key: "bind",
+    value: function bind() {
+      var inlineAttachment = new _inlineAttachment2.default(this, this.options);
 
-	  /**
-	   * Triggers when a file is dropped or pasted
-	   */
-	  onFileReceived: function onFileReceived() {},
+      this.instance.addEventListener('paste', function (e) {
+        inlineAttachment.onPaste(e);
+      }, false);
+      this.instance.addEventListener('drop', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        inlineAttachment.onDrop(e);
+      }, false);
+      this.instance.addEventListener('dragenter', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }, false);
+      this.instance.addEventListener('dragover', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }, false);
+    }
+  }]);
 
-	  /**
-	   * Custom upload handler
-	   *
-	   * @return {Boolean} when false is returned it will prevent default upload behavior
-	   */
-	  onFileUploadResponse: function onFileUploadResponse() {
-	    return true;
-	  },
+  return InputInlineAttachment;
+}();
 
-	  /**
-	   * Custom error handler. Runs after removing the placeholder text and before the alert().
-	   * Return false from this function to prevent the alert dialog.
-	   *
-	   * @return {Boolean} when false is returned it will prevent default error behavior
-	   */
-	  onFileUploadError: function onFileUploadError() {
-	    return true;
-	  },
-
-	  /**
-	   * When a file has succesfully been uploaded
-	   */
-	  onFileUploaded: function onFileUploaded() {}
-	};
+exports.default = InputInlineAttachment;
 
 /***/ })
 /******/ ]);
