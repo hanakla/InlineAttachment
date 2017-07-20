@@ -18,20 +18,12 @@ It's similar to pasting images in Github.
 
 The latest versions are available [here](https://github.com/Rovak/InlineAttachment/tree/master/dist)
 
-**Bower**
-
-The package can be installed using [Bower](http://bower.io)
-
-```
-bower install inline-attachment
-```
-
 **NPM**
 
 The package can be installed using [NPM](https://www.npmjs.com)
 
 ```
-npm install inlineattachment
+npm install @ragg/inline-attachment
 ```
 
 ## Documentation
