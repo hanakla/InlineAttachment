@@ -19,6 +19,7 @@ function webpackOptions(options) {
       path: __dirname + "/dist",
       filename: "[name].js",
       publicPath: options.publicPath,
+      libraryTarget: "umd"
     },
     resolve: {
       root: [
