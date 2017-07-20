@@ -2,24 +2,17 @@ const gulp = require("gulp");
 const gutil = require("gulp-util");
 const webpack = require("webpack");
 var path = require("path");
+const merge = require('webpack-merge');
 
 function webpackOptions(options) {
-  return {
+  const base = {
     watch: options.watch,
-    entry: {
-      "angular": './src/angular/main.js',
-      "input": './src/input/main.js',
-      "jquery": './src/jquery/main.js',
-      "codemirror-3": './src/codemirror-3/main.js',
-      "codemirror-4": './src/codemirror-4/main.js',
-    },
     devtool: options.debug ? 'inline-source-map' : '',
     debug: options.debug,
     output: {
       path: __dirname + "/dist",
       filename: "[name].js",
       publicPath: options.publicPath,
-      libraryTarget: "umd"
     },
     resolve: {
       root: [
@@ -42,6 +35,25 @@ function webpackOptions(options) {
       ]
     }
   };
+
+  return [
+    merge(base, {
+      entry: {
+        "angular": './src/angular/angular-1.js',
+        "jquery": './src/jquery/main.js',
+      }
+    }),
+    merge(base, {
+      entry: {
+        "input": './src/input/input.js',
+        "codemirror-3": './src/codemirror-3/codemirror-3.js',
+        "codemirror-4": './src/codemirror-4/codemirror-4.js',
+      },
+      output: {
+        libraryTarget: 'umd'
+      }
+    })
+  ]
 }
 
 gulp.task("default", function (callback) {
