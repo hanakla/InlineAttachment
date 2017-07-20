@@ -1,14 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -54,40 +44,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	var _angular = __webpack_require__(1);
-
-	var _angular2 = _interopRequireDefault(_angular);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	(function () {
-
-	  var root = this;
-	  root.InlineAttachment = root.InlineAttachment || {};
-	  root.InputInlineAttachment = _angular2.default;
-
-	  if (true) {
-	    exports.InputInlineAttachment = root.InputInlineAttachment;
-	  }
-	}).call(typeof window !== 'undefined' ? window : undefined);
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	var _utils = __webpack_require__(2);
+	var _utils = __webpack_require__(1);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
-	var _input = __webpack_require__(3);
+	var _input = __webpack_require__(2);
 
 	var _input2 = _interopRequireDefault(_input);
 
@@ -155,7 +122,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = _module;
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -280,7 +247,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Utils;
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -291,11 +258,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _utils = __webpack_require__(2);
+	var _utils = __webpack_require__(1);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
-	var _inlineAttachment = __webpack_require__(4);
+	var _inlineAttachment = __webpack_require__(3);
 
 	var _inlineAttachment2 = _interopRequireDefault(_inlineAttachment);
 
@@ -357,7 +324,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = InputInlineAttachment;
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -370,11 +337,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _utils = __webpack_require__(2);
+	var _utils = __webpack_require__(1);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
-	var _defaults = __webpack_require__(5);
+	var _defaults = __webpack_require__(4);
 
 	var _defaults2 = _interopRequireDefault(_defaults);
 
@@ -604,7 +571,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = InlineAttachment;
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -713,6 +680,4 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ })
-/******/ ])
-});
-;
+/******/ ]);

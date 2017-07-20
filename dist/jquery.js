@@ -1,14 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -56,7 +46,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _jquery = __webpack_require__(8);
+	var _jquery = __webpack_require__(5);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -75,7 +65,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  if (typeof jQuery === 'undefined') {
 	    if (true) {
-	      jQuery = __webpack_require__(9);
+	      jQuery = __webpack_require__(6);
 	    } else {
 	      throw new Error('jQuery version of InlineAttachment requires jQuery, see https://jquery.com/');
 	    }
@@ -92,8 +82,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}).call(typeof window !== 'undefined' ? window : undefined);
 
 /***/ }),
-/* 1 */,
-/* 2 */
+/* 1 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -218,8 +207,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = Utils;
 
 /***/ }),
-/* 3 */,
-/* 4 */
+/* 2 */,
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -232,11 +221,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _utils = __webpack_require__(2);
+	var _utils = __webpack_require__(1);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
-	var _defaults = __webpack_require__(5);
+	var _defaults = __webpack_require__(4);
 
 	var _defaults2 = _interopRequireDefault(_defaults);
 
@@ -466,7 +455,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = InlineAttachment;
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -575,9 +564,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ }),
-/* 6 */,
-/* 7 */,
-/* 8 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -588,11 +575,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _inlineAttachment = __webpack_require__(4);
+	var _inlineAttachment = __webpack_require__(3);
 
 	var _inlineAttachment2 = _interopRequireDefault(_inlineAttachment);
 
-	var _utils = __webpack_require__(2);
+	var _utils = __webpack_require__(1);
 
 	var _utils2 = _interopRequireDefault(_utils);
 
@@ -652,7 +639,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = jQueryInlineAttachment;
 
 /***/ }),
-/* 9 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10911,6 +10898,4 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ })
-/******/ ])
-});
-;
+/******/ ]);
