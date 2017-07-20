@@ -1,12 +1,14 @@
 {
   "name": "@ragg/inline-attachment",
   "version": "3.0.0",
+  "main": "dist/input.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Rovak/InlineAttachment.git"
   },
   "authors": [
-    "Roy van Kaathoven @razko <ik@royvankaathoven.nl> (https://github.com/rovak)"
+    "Roy van Kaathoven @razko <ik@royvankaathoven.nl> (https://github.com/rovak)",
+    "Ragg @Ragg- <ragg.devpr@gmail.com>"
   ],
   "dependencies": {},
   "devDependencies": {
