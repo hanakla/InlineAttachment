@@ -4,11 +4,11 @@
   "main": "inline-attachment.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Rovak/InlineAttachment.git"
+    "url": "https://github.com/Ragg-/InlineAttachment.git"
   },
   "authors": [
     "Roy van Kaathoven @razko <ik@royvankaathoven.nl> (https://github.com/rovak)",
-    "Ragg @Ragg- <ragg.devpr@gmail.com>"
+    "Ragg @Ragg- <ragg.devpr@gmail.com> (https://github.com/Ragg-)"
   ],
   "dependencies": {},
   "devDependencies": {
