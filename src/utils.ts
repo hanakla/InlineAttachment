@@ -1,3 +1,5 @@
+import {InlineAttachmentSettings} from './inline-attachment'
+
 export default class Utils {
 
   /**
@@ -5,8 +7,10 @@ export default class Utils {
    *
    * @returns {Object}
    */
-  static merge(...objects) {
+  static merge(...objects: Partial<InlineAttachmentSettings>[]): InlineAttachmentSettings
+  {
     var result = {};
+
     for (var i = objects.length - 1; i >= 0; i--) {
       var obj = objects[i];
       for (var k in obj) {
@@ -15,14 +19,16 @@ export default class Utils {
         }
       }
     }
-    return result;
+
+    return (result as any);
   }
 
   /**
    * @param str
    * @returns {string} Returns the string with the first letter as lowercase
    */
-  static lcfirst(str) {
+  static lcfirst(str: string): string
+  {
     return str.charAt(0).toLowerCase() + str.substr(1);
   }
 
@@ -32,7 +38,8 @@ export default class Utils {
    * @param {String} appended Current content
    * @param {String} previous Value which should be appended after the current content
    */
-  static appendInItsOwnLine(previous, appended) {
+  static appendInItsOwnLine(previous: string, appended: string)
+  {
     return (previous + "\n\n[[D]]" + appended)
       .replace(/(\n{2,})\[\[D\]\]/, "\n\n")
       .replace(/^(\n*)/, "");
@@ -41,24 +48,25 @@ export default class Utils {
   /**
    * Inserts the given value at the current cursor position of the textarea element
    *
-   * @param  {HtmlElement} el
+   * @param  {HTMLElement} el
    * @param  {String} text Text which will be inserted at the cursor position
    */
-  static insertTextAtCursor(el, text) {
-    var scrollPos = el.scrollTop,
-      strPos = 0,
-      browser = false,
-      range;
+  static insertTextAtCursor(el: HTMLInputElement|HTMLTextAreaElement, text: string)
+  {
+    const scrollPos = el.scrollTop;
+    let strPos = 0;
+    let browser: string|false = false;
+    let range;
 
-    if ((el.selectionStart || el.selectionStart === '0')) {
+    if ((el.selectionStart || el.selectionStart === 0)) {
       browser = "ff";
-    } else if (document.selection) {
+    } else if ((document as any).selection) {
       browser = "ie";
     }
 
     if (browser === "ie") {
       el.focus();
-      range = document.selection.createRange();
+      range = (document as any).selection.createRange();
       range.moveStart('character', -el.value.length);
       strPos = range.text.length;
     } else if (browser === "ff") {
@@ -71,7 +79,7 @@ export default class Utils {
     strPos = strPos + text.length;
     if (browser === "ie") {
       el.focus();
-      range = document.selection.createRange();
+      range = (document as any).selection.createRange();
       range.moveStart('character', -el.value.length);
       range.moveStart('character', strPos);
       range.moveEnd('character', 0);

@@ -1,29 +1,32 @@
-"use strict";
-
+import {default as InlineAttachment, IEditor, InlineAttachmentSettings} from "../inline-attachment";
 import Utils from "../utils";
-import InlineAttachment from "../inline-attachment";
 
-class InputInlineAttachment {
+export default class InputInlineAttachment implements IEditor {
+  private instance: HTMLInputElement|HTMLTextAreaElement
+  private options: Partial<InlineAttachmentSettings>
 
-  constructor(instance, options) {
+  constructor(
+    instance: HTMLInputElement|HTMLTextAreaElement,
+    options: Partial<InlineAttachmentSettings>
+  ) {
     this.instance = instance;
     this.options = options;
     this.bind();
   }
 
-  getValue() {
+  public getValue() {
     return this.instance.value;
   }
 
-  insertValue(val) {
+  public insertValue(val) {
     Utils.insertTextAtCursor(this.instance, val);
   }
 
-  setValue(val) {
+  public setValue(val) {
     this.instance.value = val;
   }
 
-  bind() {
+  private bind() {
     let inlineAttachment = new InlineAttachment(this, this.options);
 
     this.instance.addEventListener('paste', function (e) {
@@ -44,5 +47,3 @@ class InputInlineAttachment {
     }, false);
   }
 }
-
-export default InputInlineAttachment;
