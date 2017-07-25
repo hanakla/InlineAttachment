@@ -1,7 +1,7 @@
 {
   "name": "@ragg/inline-attachment",
   "version": "3.0.0",
-  "main": "dist/input.js",
+  "main": "inline-attachment.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Rovak/InlineAttachment.git"

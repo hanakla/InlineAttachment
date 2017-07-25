@@ -40,6 +40,7 @@ module.exports = [
   // No side effect
   merge(base, {
     entry: {
+      "inline-attachment": "./src/inline-attachment.js",
       "input": './src/input/input.js',
       "codemirror-3": './src/codemirror-3/codemirror-3.js',
       "codemirror-4": './src/codemirror-4/codemirror-4.js',
