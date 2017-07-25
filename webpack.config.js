@@ -11,7 +11,7 @@ const base = {
     filename: "[name].js",
   },
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js', '.ts']
   },
   module: {
     rules: [
@@ -24,6 +24,10 @@ const base = {
         query: {
           presets: ['es2015']
         }
+      },
+      {
+        test: /\.ts$/,
+        loader: 'ts-loader',
       }
     ]
   }
