@@ -2,6 +2,7 @@ import * as CodeMirror from 'codemirror'
 import {default as InlineAttachment, IEditor, InlineAttachmentSettings} from "../inline-attachment";
 
 export default class CodeMirror3 implements IEditor {
+  private inlineAttachment: InlineAttachment
   private instance: CodeMirror.Editor
   private options: Partial<InlineAttachmentSettings>
 
@@ -16,6 +17,11 @@ export default class CodeMirror3 implements IEditor {
     this.instance = instance;
     this.options = options;
     this.bind();
+  }
+
+  public getInlineAttachment()
+  {
+    return this.inlineAttachment;
   }
 
   public getValue() {
@@ -33,7 +39,7 @@ export default class CodeMirror3 implements IEditor {
   }
 
   private bind() {
-    let inlineAttachment = new InlineAttachment(this, this.options);
+    const inlineAttachment = this.inlineAttachment || (this.inlineAttachment = new InlineAttachment(this, this.options));
     let el = this.instance.getWrapperElement();
 
     el.addEventListener('paste', function(e) {

@@ -3,6 +3,7 @@ import {default as InlineAttachment, IEditor, InlineAttachmentSettings} from "..
 import Utils from "../utils";
 
 export default class jQueryInlineAttachment implements IEditor {
+  private inlineAttachment: InlineAttachment
   private instance: JQuery<HTMLInputElement|HTMLTextAreaElement>
   private options: Partial<InlineAttachmentSettings>
 
@@ -13,6 +14,11 @@ export default class jQueryInlineAttachment implements IEditor {
     this.instance = $(instance) as JQuery<HTMLInputElement|HTMLTextAreaElement>;
     this.options = options;
     this.bind();
+  }
+
+  public getInlineAttachment()
+  {
+    return this.inlineAttachment;
   }
 
   public getValue() {
@@ -28,7 +34,7 @@ export default class jQueryInlineAttachment implements IEditor {
   }
 
   private bind() {
-    var inlineAttachment = new InlineAttachment(this, this.options);
+    const inlineAttachment = this.inlineAttachment || (this.inlineAttachment = new InlineAttachment(this, this.options));
 
     this.instance.bind({
       'paste': (e) => {

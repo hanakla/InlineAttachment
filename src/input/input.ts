@@ -2,6 +2,7 @@ import {default as InlineAttachment, IEditor, InlineAttachmentSettings} from "..
 import Utils from "../utils";
 
 export default class InputInlineAttachment implements IEditor {
+  private inlineAttachment: InlineAttachment
   private instance: HTMLInputElement|HTMLTextAreaElement
   private options: Partial<InlineAttachmentSettings>
 
@@ -12,6 +13,11 @@ export default class InputInlineAttachment implements IEditor {
     this.instance = instance;
     this.options = options;
     this.bind();
+  }
+
+  public getInlineAttachment()
+  {
+    return this.inlineAttachment;
   }
 
   public getValue() {
@@ -27,7 +33,7 @@ export default class InputInlineAttachment implements IEditor {
   }
 
   private bind() {
-    let inlineAttachment = new InlineAttachment(this, this.options);
+    const inlineAttachment = this.inlineAttachment || (this.inlineAttachment = new InlineAttachment(this, this.options));
 
     this.instance.addEventListener('paste', function (e) {
       inlineAttachment.onPaste(e);
