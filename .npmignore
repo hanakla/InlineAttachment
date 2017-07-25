@@ -1,6 +1,6 @@
-/src
 /docs
 /demo
 .travis.yml
 webpack.config.js
+tsconfig.json
 yarn.lock

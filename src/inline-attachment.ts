@@ -1,10 +1,42 @@
 import Utils from "./utils";
 import defaultOptions from "./defaults";
 
-export default class InlineAttachment {
+export interface InlineAttachmentSettings {
+  uploadUrl: string
+  uploadMethod: string
+  uploadFieldName: string
+  defaultExtension: string
+  jsonFieldName: string
+  allowedTypes: string[]
+  progressText: string
+  urlText: string|(() => string)
+  errorText: string
+  extraParams: {[name: string]: any}
+  extraHeaders: {[name: string]: any}
+  beforeFileUpload?: (xhr: XMLHttpRequest) => boolean
+  setupFormData?: (formData: FormData, file: File) => void
+  remoteFilename?: (file: File) => string
+  onFileReceived?: () => boolean
+  onFileUploadResponse?: () => boolean
+  onFileUploadError?: () => boolean
+  onFileUploaded?: () => void
+}
 
-  constructor(instance, options) {
-    this.settings = Utils.merge(options, defaultOptions);
+export interface IEditor {
+  getValue(): string
+  setValue(value: string): void
+  insertValue(value: string): void
+}
+
+export default class InlineAttachment {
+  private settings: InlineAttachmentSettings
+  private editor: IEditor
+  private filenameTag: string
+  private lastValue: string
+
+  constructor(instance: IEditor, options: Partial<InlineAttachmentSettings>)
+  {
+    this.settings = Utils.merge(options, defaultOptions as Partial<InlineAttachmentSettings>);
     this.editor = instance;
     this.filenameTag = '{filename}';
     this.lastValue = null;
@@ -16,12 +48,13 @@ export default class InlineAttachment {
    * @param  {Blob} file blob data received from event.dataTransfer object
    * @return {XMLHttpRequest} request object which sends the file
    */
-  uploadFile(file) {
-    var me = this,
-      formData = new FormData(),
-      xhr = new XMLHttpRequest(),
-      settings = this.settings,
-      extension = settings.defaultExtension || settings.defualtExtension;
+  public uploadFile(file)
+  {
+    const formData = new FormData();
+    const xhr = new XMLHttpRequest();
+    const settings = this.settings;
+
+    let extension = settings.defaultExtension;
 
     if (typeof settings.setupFormData === 'function') {
       settings.setupFormData(formData, file);
@@ -30,13 +63,13 @@ export default class InlineAttachment {
     // Attach the file. If coming from clipboard, add a default filename (only works in Chrome for now)
     // http://stackoverflow.com/questions/6664967/how-to-give-a-blob-uploaded-as-formdata-a-file-name
     if (file.name) {
-      var fileNameMatches = file.name.match(/\.(.+)$/);
+      const fileNameMatches = file.name.match(/\.(.+)$/);
       if (fileNameMatches) {
         extension = fileNameMatches[1];
       }
     }
 
-    var remoteFilename = "image-" + Date.now() + "." + extension;
+    let remoteFilename = "image-" + Date.now() + "." + extension;
     if (typeof settings.remoteFilename === 'function') {
       remoteFilename = settings.remoteFilename(file);
     }
@@ -63,17 +96,18 @@ export default class InlineAttachment {
       }
     }
 
-    xhr.onload = function () {
+    xhr.onload = () => {
       // If HTTP status is OK or Created
       if (xhr.status === 200 || xhr.status === 201) {
-        me.onFileUploadResponse(xhr);
+        this.onFileUploadResponse(xhr);
       } else {
-        me.onFileUploadError(xhr);
+        this.onFileUploadError(xhr);
       }
     };
     if (settings.beforeFileUpload(xhr) !== false) {
       xhr.send(formData);
     }
+
     return xhr;
   }
 
@@ -82,7 +116,8 @@ export default class InlineAttachment {
    *
    * @param {File} file clipboard data file
    */
-  isFileAllowed(file) {
+  public isFileAllowed(file): boolean
+  {
     if (file.kind === 'string') {
       return false;
     }
@@ -99,7 +134,8 @@ export default class InlineAttachment {
    * @param  {XMLHttpRequest} xhr
    * @return {void}
    */
-  onFileUploadResponse(xhr) {
+  public onFileUploadResponse(xhr)
+  {
     if (this.settings.onFileUploadResponse.call(this, xhr) !== false) {
       var result = JSON.parse(xhr.responseText),
         filename = result[this.settings.jsonFieldName];
@@ -125,9 +161,10 @@ export default class InlineAttachment {
    * @param  {XMLHttpRequest} xhr
    * @return {void}
    */
-  onFileUploadError(xhr) {
+  public onFileUploadError(xhr)
+  {
     if (this.settings.onFileUploadError.call(this, xhr) !== false) {
-      var text = this.editor.getValue().replace(this.lastValue, this.settings.errorText);
+      const text = this.editor.getValue().replace(this.lastValue, this.settings.errorText);
       this.editor.setValue(text);
     }
   }
@@ -138,7 +175,8 @@ export default class InlineAttachment {
    * @param  {File} file
    * @return {void}
    */
-  onFileInserted(file) {
+  public onFileInserted(file)
+  {
     if (this.settings.onFileReceived.call(this, file) !== false) {
       this.lastValue = this.settings.progressText;
       this.editor.insertValue(this.lastValue);
@@ -151,16 +189,18 @@ export default class InlineAttachment {
    * @param  {Event} e
    * @return {Boolean} if the event was handled
    */
-  onPaste(e) {
-    var result = false,
-      clipboardData = e.clipboardData,
-      items;
+  public onPaste(e)
+  {
+    const clipboardData = e.clipboardData;
+    let result = false;
+    let items;
 
     if (typeof clipboardData === "object") {
       items = clipboardData.items || clipboardData.files || [];
 
-      for (var i = 0; i < items.length; i++) {
-        var item = items[i];
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+
         if (this.isFileAllowed(item)) {
           result = true;
           this.onFileInserted(item.getAsFile());
@@ -181,10 +221,13 @@ export default class InlineAttachment {
    * @param  {Event} e
    * @return {Boolean} if the event was handled
    */
-  onDrop(e) {
-    var result = false;
-    for (var i = 0; i < e.dataTransfer.files.length; i++) {
-      var file = e.dataTransfer.files[i];
+  public onDrop(e)
+  {
+    let result = false;
+
+    for (let i = 0; i < e.dataTransfer.files.length; i++) {
+      const file = e.dataTransfer.files[i];
+
       if (this.isFileAllowed(file)) {
         result = true;
         this.onFileInserted(file);

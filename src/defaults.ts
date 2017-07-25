@@ -76,7 +76,9 @@ export default {
   /**
    * Triggers when a file is dropped or pasted
    */
-  onFileReceived: function() {},
+  onFileReceived: function() {
+    return true;
+  },
 
   /**
    * Custom upload handler
