@@ -1,7 +1,7 @@
 {
   "name": "@ragg/inline-attachment",
-  "version": "3.0.0",
-  "main": "inline-attachment.js",
+  "version": "4.0.0",
+  "main": "dist/inline-attachment.js",
   "typings": "src/inline-attachments.ts",
   "repository": {
     "type": "git",
