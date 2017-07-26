@@ -1,15 +1,7 @@
-import jQueryInlineAttachment from '../jquery/jquery';
+import jQueryInlineAttachment from './jquery';
 
-(function() {
-
-  let root = this;
-
-  root.InlineAttachment = root.InlineAttachment || {};
-  root.InlineAttachment.jQuery = jQueryInlineAttachment;
-
-  if (typeof exports !== "undefined") {
-    exports.jQuery = jQueryInlineAttachment;
-  }
+(root => {
+  let jQuery = root.jQuery;
 
   if( typeof jQuery === 'undefined' ) {
     if( typeof require !== 'undefined' ) {
@@ -20,13 +12,12 @@ import jQueryInlineAttachment from '../jquery/jquery';
   }
 
   jQuery.fn.inlineAttachment = function(options) {
-
     $(this).each(function() {
       new jQueryInlineAttachment(this, options);
     });
 
     return this;
   };
+})(typeof window !== 'undefined' ? window : this);
 
-
-}).call(typeof window !== 'undefined' ? window : this);
+export default jQueryInlineAttachment;

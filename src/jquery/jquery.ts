@@ -8,10 +8,10 @@ export default class jQueryInlineAttachment implements IEditor {
   private options: Partial<InlineAttachmentSettings>
 
   constructor(
-    instance: HTMLInputElement|HTMLTextAreaElement,
+    instance: JQuery<HTMLInputElement|HTMLTextAreaElement>,
     options: Partial<InlineAttachmentSettings>
   ) {
-    this.instance = $(instance) as JQuery<HTMLInputElement|HTMLTextAreaElement>;
+    this.instance = instance;
     this.options = options;
     this.bind();
   }
