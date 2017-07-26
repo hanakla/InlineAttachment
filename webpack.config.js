@@ -48,7 +48,6 @@ module.exports = [
   merge(base, {
     entry: {
       "angular": './src/angular/angular-1.js',
-      "jquery": './src/jquery/main.js',
     }
   }),
   // No side effect
@@ -56,6 +55,7 @@ module.exports = [
     entry: {
       "inline-attachment": "./src/inline-attachment.ts",
       "input": './src/input/input.ts',
+      "jquery": './src/jquery/jquery.ts',
       "codemirror-3": './src/codemirror-3/codemirror-3.ts',
       "codemirror-4": './src/codemirror-4/codemirror-4.ts',
     },

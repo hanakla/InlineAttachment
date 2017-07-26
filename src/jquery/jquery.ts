@@ -3,6 +3,17 @@ import {default as InlineAttachment, IEditor, InlineAttachmentSettings} from "..
 import Utils from "../utils";
 
 export default class jQueryInlineAttachment implements IEditor {
+  public static attach(jQuery: JQueryStatic)
+  {
+    (jQuery.fn as any).inlineAttachment = function(options) {
+      this.each(function() {
+        new jQueryInlineAttachment(jQuery(this) as any, options);
+      });
+
+      return this;
+    };
+  }
+
   private inlineAttachment: InlineAttachment
   private instance: JQuery<HTMLInputElement|HTMLTextAreaElement>
   private options: Partial<InlineAttachmentSettings>
