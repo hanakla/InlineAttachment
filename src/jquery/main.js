@@ -4,7 +4,8 @@ import jQueryInlineAttachment from './jquery';
   let jQuery = root.jQuery;
 
   if( typeof jQuery === 'undefined' ) {
-    if( typeof require !== 'undefined' ) {
+    // HACK: Escape from webpack's `require` replacing
+    if( eval('typeof require') !== 'undefined' ) {
       jQuery = require('jquery');
     } else {
       throw new Error('jQuery version of InlineAttachment requires jQuery, see https://jquery.com/');
@@ -12,7 +13,7 @@ import jQueryInlineAttachment from './jquery';
   }
 
   jQuery.fn.inlineAttachment = function(options) {
-    $(this).each(function() {
+    jQuery(this).each(function() {
       new jQueryInlineAttachment(this, options);
     });
 

@@ -11,7 +11,10 @@ const base = {
     filename: "[name].js",
   },
   resolve: {
-    extensions: ['.js', '.ts']
+    extensions: ['.js', '.ts'],
+  },
+  externals: {
+    jquery: "commonjs2 jquery",
   },
   module: {
     rules: [
