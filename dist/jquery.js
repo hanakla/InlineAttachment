@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -60,7 +70,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,7 +78,6 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var Utils = (function () {
     function Utils() {
     }
@@ -158,7 +167,7 @@ var Utils = (function () {
     };
     return Utils;
 }());
-/* harmony default export */ __webpack_exports__["default"] = (Utils);
+/* harmony default export */ __webpack_exports__["a"] = (Utils);
 
 
 /***/ }),
@@ -267,7 +276,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var inline_attachment_InlineAttachment = (function () {
     function InlineAttachment(instance, options) {
-        this.settings = __WEBPACK_IMPORTED_MODULE_0__utils__["default"].merge(options, defaults_defaultExport);
+        this.settings = __WEBPACK_IMPORTED_MODULE_0__utils__["a" /* default */].merge(options, defaults_defaultExport);
         this.editor = instance;
         this.filenameTag = '{filename}';
         this.lastValue = null;
@@ -438,53 +447,12 @@ var inline_attachment_InlineAttachment = (function () {
     };
     return InlineAttachment;
 }());
-/* harmony default export */ __webpack_exports__["a"] = (inline_attachment_InlineAttachment);
+/* harmony default export */ __webpack_exports__["default"] = (inline_attachment_InlineAttachment);
 
 
 /***/ }),
 /* 2 */,
-/* 3 */,
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _jquery = __webpack_require__(5);
-
-var _jquery2 = _interopRequireDefault(_jquery);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-(function (root) {
-  var jQuery = root.jQuery;
-
-  if (typeof jQuery === 'undefined') {
-    // HACK: Escape from webpack's `require` replacing
-    if (eval('typeof require') !== 'undefined') {
-      jQuery = __webpack_require__(6);
-    } else {
-      throw new Error('jQuery version of InlineAttachment requires jQuery, see https://jquery.com/');
-    }
-  }
-
-  jQuery.fn.inlineAttachment = function (options) {
-    jQuery(this).each(function () {
-      new _jquery2.default(this, options);
-    });
-
-    return this;
-  };
-})(typeof window !== 'undefined' ? window : undefined);
-
-exports.default = _jquery2.default;
-
-/***/ }),
-/* 5 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -499,6 +467,14 @@ var jQueryInlineAttachment = (function () {
         this.options = options;
         this.bind();
     }
+    jQueryInlineAttachment.attach = function (jQuery) {
+        jQuery.fn.inlineAttachment = function (options) {
+            this.each(function () {
+                new jQueryInlineAttachment(jQuery(this), options);
+            });
+            return this;
+        };
+    };
     jQueryInlineAttachment.prototype.getInlineAttachment = function () {
         return this.inlineAttachment;
     };
@@ -506,13 +482,13 @@ var jQueryInlineAttachment = (function () {
         return this.instance.val();
     };
     jQueryInlineAttachment.prototype.insertValue = function (val) {
-        __WEBPACK_IMPORTED_MODULE_1__utils__["default"].insertTextAtCursor(this.instance[0], val);
+        __WEBPACK_IMPORTED_MODULE_1__utils__["a" /* default */].insertTextAtCursor(this.instance[0], val);
     };
     jQueryInlineAttachment.prototype.setValue = function (val) {
         this.instance.val(val);
     };
     jQueryInlineAttachment.prototype.bind = function () {
-        var inlineAttachment = this.inlineAttachment || (this.inlineAttachment = new __WEBPACK_IMPORTED_MODULE_0__inline_attachment__["a" /* default */](this, this.options));
+        var inlineAttachment = this.inlineAttachment || (this.inlineAttachment = new __WEBPACK_IMPORTED_MODULE_0__inline_attachment__["default"](this, this.options));
         this.instance.bind({
             'paste': function (e) {
                 inlineAttachment.onPaste(e.originalEvent);
@@ -533,11 +509,6 @@ var jQueryInlineAttachment = (function () {
 /* harmony default export */ __webpack_exports__["default"] = (jQueryInlineAttachment);
 
 
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("jquery");
-
 /***/ })
 /******/ ]);
+});

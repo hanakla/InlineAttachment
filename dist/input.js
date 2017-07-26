@@ -175,7 +175,6 @@ var Utils = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // CONCATENATED MODULE: ./src/defaults.ts
 /**

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69,6 +69,8 @@
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+
+// CONCATENATED MODULE: ./src/utils.ts
 var Utils = (function () {
     function Utils() {
     }
@@ -158,14 +160,7 @@ var Utils = (function () {
     };
     return Utils;
 }());
-/* harmony default export */ __webpack_exports__["default"] = (Utils);
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
+/* harmony default export */ var utils_defaultExport = (Utils);
 
 // CONCATENATED MODULE: ./src/defaults.ts
 /**
@@ -261,12 +256,11 @@ var Utils = (function () {
 });
 
 // CONCATENATED MODULE: ./src/inline-attachment.ts
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(0);
 
 
 var inline_attachment_InlineAttachment = (function () {
     function InlineAttachment(instance, options) {
-        this.settings = __WEBPACK_IMPORTED_MODULE_0__utils__["default"].merge(options, defaults_defaultExport);
+        this.settings = utils_defaultExport.merge(options, defaults_defaultExport);
         this.editor = instance;
         this.filenameTag = '{filename}';
         this.lastValue = null;
@@ -437,32 +431,58 @@ var inline_attachment_InlineAttachment = (function () {
     };
     return InlineAttachment;
 }());
-/* harmony default export */ __webpack_exports__["a"] = (inline_attachment_InlineAttachment);
+/* harmony default export */ var inline_attachment_defaultExport = (inline_attachment_InlineAttachment);
+
+// CONCATENATED MODULE: ./src/input/input.ts
 
 
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
+var input_InputInlineAttachment = (function () {
+    function InputInlineAttachment(instance, options) {
+        this.instance = instance;
+        this.options = options;
+        this.bind();
+    }
+    InputInlineAttachment.prototype.getInlineAttachment = function () {
+        return this.inlineAttachment;
+    };
+    InputInlineAttachment.prototype.getValue = function () {
+        return this.instance.value;
+    };
+    InputInlineAttachment.prototype.insertValue = function (val) {
+        utils_defaultExport.insertTextAtCursor(this.instance, val);
+    };
+    InputInlineAttachment.prototype.setValue = function (val) {
+        this.instance.value = val;
+    };
+    InputInlineAttachment.prototype.bind = function () {
+        var inlineAttachment = this.inlineAttachment || (this.inlineAttachment = new inline_attachment_defaultExport(this, this.options));
+        this.instance.addEventListener('paste', function (e) {
+            inlineAttachment.onPaste(e);
+        }, false);
+        this.instance.addEventListener('drop', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            inlineAttachment.onDrop(e);
+        }, false);
+        this.instance.addEventListener('dragenter', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }, false);
+        this.instance.addEventListener('dragover', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }, false);
+    };
+    return InputInlineAttachment;
+}());
+/* harmony default export */ var input_defaultExport = (input_InputInlineAttachment);
 
-"use strict";
+// CONCATENATED MODULE: ./src/angular/angular-1.js
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _utils = __webpack_require__(0);
-
-var _utils2 = _interopRequireDefault(_utils);
-
-var _input = __webpack_require__(3);
-
-var _input2 = _interopRequireDefault(_input);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var directiveName = 'inlineattachment';
-var _module = angular.module(directiveName, []);
+var module = angular.module(directiveName, []);
 
 /**
  * Read all parameters from the given attributes object
@@ -485,7 +505,7 @@ function readParameters(obj, scope) {
     for (var _iterator = Object.keys(attrs)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
       var key = _step.value;
 
-      option = _utils2.default.lcfirst(key.substr(directiveName.length));
+      option = utils_defaultExport.lcfirst(key.substr(directiveName.length));
       value = obj[key];
       // Check if the given key is a valid string type, not empty and starts with the attribute name
       if (option.length > 0 && key.substring(0, directiveName.length) === directiveName) {
@@ -513,66 +533,14 @@ function readParameters(obj, scope) {
   return result;
 }
 
-_module.directive(directiveName, function () {
+module.directive(directiveName, function () {
   return function (scope, element, attrs) {
     var options = readParameters(attrs, scope);
-    new _input2.default(element[0], options);
+    new input_defaultExport(element[0], options);
   };
 });
 
-exports.default = _module;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__inline_attachment__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils__ = __webpack_require__(0);
-
-
-var InputInlineAttachment = (function () {
-    function InputInlineAttachment(instance, options) {
-        this.instance = instance;
-        this.options = options;
-        this.bind();
-    }
-    InputInlineAttachment.prototype.getInlineAttachment = function () {
-        return this.inlineAttachment;
-    };
-    InputInlineAttachment.prototype.getValue = function () {
-        return this.instance.value;
-    };
-    InputInlineAttachment.prototype.insertValue = function (val) {
-        __WEBPACK_IMPORTED_MODULE_1__utils__["default"].insertTextAtCursor(this.instance, val);
-    };
-    InputInlineAttachment.prototype.setValue = function (val) {
-        this.instance.value = val;
-    };
-    InputInlineAttachment.prototype.bind = function () {
-        var inlineAttachment = this.inlineAttachment || (this.inlineAttachment = new __WEBPACK_IMPORTED_MODULE_0__inline_attachment__["a" /* default */](this, this.options));
-        this.instance.addEventListener('paste', function (e) {
-            inlineAttachment.onPaste(e);
-        }, false);
-        this.instance.addEventListener('drop', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            inlineAttachment.onDrop(e);
-        }, false);
-        this.instance.addEventListener('dragenter', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-        }, false);
-        this.instance.addEventListener('dragover', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-        }, false);
-    };
-    return InputInlineAttachment;
-}());
-/* harmony default export */ __webpack_exports__["default"] = (InputInlineAttachment);
-
+/* harmony default export */ __webpack_exports__["default"] = (module);
 
 /***/ })
 /******/ ]);
