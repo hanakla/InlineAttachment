@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -175,14 +175,107 @@ var Utils = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+
+// CONCATENATED MODULE: ./src/defaults.ts
+/**
+ * Default Options
+ */
+/* harmony default export */ var defaults_defaultExport = ({
+    /**
+     * URL where the file will be send
+     */
+    uploadUrl: 'upload_attachment.php',
+    /**
+     * Which method will be used to send the file to the upload URL
+     */
+    uploadMethod: 'POST',
+    /**
+     * Name in which the file will be placed
+     */
+    uploadFieldName: 'file',
+    /**
+     * Extension which will be used when a file extension could not
+     * be detected
+     */
+    defaultExtension: 'png',
+    /**
+     * JSON field which refers to the uploaded file URL
+     */
+    jsonFieldName: 'filename',
+    /**
+     * Allowed MIME types
+     */
+    allowedTypes: [
+        'image/jpeg',
+        'image/png',
+        'image/jpg',
+        'image/gif'
+    ],
+    /**
+     * Text which will be inserted when dropping or pasting a file.
+     * Acts as a placeholder which will be replaced when the file is done with uploading
+     */
+    progressText: '![Uploading file...]()',
+    /**
+     * When a file has successfully been uploaded the progressText
+     * will be replaced by the urlText, the {filename} tag will be replaced
+     * by the filename that has been returned by the server
+     */
+    urlText: "![file]({filename})",
+    /**
+     * Text which will be used when uploading has failed
+     */
+    errorText: "Error uploading file",
+    /**
+     * Extra parameters which will be send when uploading a file
+     */
+    extraParams: {},
+    /**
+     * Extra headers which will be send when uploading a file
+     */
+    extraHeaders: {},
+    /**
+     * Before the file is send
+     */
+    beforeFileUpload: function () {
+        return true;
+    },
+    /**
+     * Triggers when a file is dropped or pasted
+     */
+    onFileReceived: function () {
+        return true;
+    },
+    /**
+     * Custom upload handler
+     *
+     * @return {Boolean} when false is returned it will prevent default upload behavior
+     */
+    onFileUploadResponse: function () {
+        return true;
+    },
+    /**
+     * Custom error handler. Runs after removing the placeholder text and before the alert().
+     * Return false from this function to prevent the alert dialog.
+     *
+     * @return {Boolean} when false is returned it will prevent default error behavior
+     */
+    onFileUploadError: function () {
+        return true;
+    },
+    /**
+     * When a file has succesfully been uploaded
+     */
+    onFileUploaded: function () { }
+});
+
+// CONCATENATED MODULE: ./src/inline-attachment.ts
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__defaults__ = __webpack_require__(2);
 
 
-var InlineAttachment = (function () {
+var inline_attachment_InlineAttachment = (function () {
     function InlineAttachment(instance, options) {
-        this.settings = __WEBPACK_IMPORTED_MODULE_0__utils__["a" /* default */].merge(options, __WEBPACK_IMPORTED_MODULE_1__defaults__["a" /* default */]);
+        this.settings = __WEBPACK_IMPORTED_MODULE_0__utils__["a" /* default */].merge(options, defaults_defaultExport);
         this.editor = instance;
         this.filenameTag = '{filename}';
         this.lastValue = null;
@@ -353,110 +446,12 @@ var InlineAttachment = (function () {
     };
     return InlineAttachment;
 }());
-/* harmony default export */ __webpack_exports__["default"] = (InlineAttachment);
+/* harmony default export */ __webpack_exports__["default"] = (inline_attachment_InlineAttachment);
 
 
 /***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/**
- * Default Options
- */
-/* harmony default export */ __webpack_exports__["a"] = ({
-    /**
-     * URL where the file will be send
-     */
-    uploadUrl: 'upload_attachment.php',
-    /**
-     * Which method will be used to send the file to the upload URL
-     */
-    uploadMethod: 'POST',
-    /**
-     * Name in which the file will be placed
-     */
-    uploadFieldName: 'file',
-    /**
-     * Extension which will be used when a file extension could not
-     * be detected
-     */
-    defaultExtension: 'png',
-    /**
-     * JSON field which refers to the uploaded file URL
-     */
-    jsonFieldName: 'filename',
-    /**
-     * Allowed MIME types
-     */
-    allowedTypes: [
-        'image/jpeg',
-        'image/png',
-        'image/jpg',
-        'image/gif'
-    ],
-    /**
-     * Text which will be inserted when dropping or pasting a file.
-     * Acts as a placeholder which will be replaced when the file is done with uploading
-     */
-    progressText: '![Uploading file...]()',
-    /**
-     * When a file has successfully been uploaded the progressText
-     * will be replaced by the urlText, the {filename} tag will be replaced
-     * by the filename that has been returned by the server
-     */
-    urlText: "![file]({filename})",
-    /**
-     * Text which will be used when uploading has failed
-     */
-    errorText: "Error uploading file",
-    /**
-     * Extra parameters which will be send when uploading a file
-     */
-    extraParams: {},
-    /**
-     * Extra headers which will be send when uploading a file
-     */
-    extraHeaders: {},
-    /**
-     * Before the file is send
-     */
-    beforeFileUpload: function () {
-        return true;
-    },
-    /**
-     * Triggers when a file is dropped or pasted
-     */
-    onFileReceived: function () {
-        return true;
-    },
-    /**
-     * Custom upload handler
-     *
-     * @return {Boolean} when false is returned it will prevent default upload behavior
-     */
-    onFileUploadResponse: function () {
-        return true;
-    },
-    /**
-     * Custom error handler. Runs after removing the placeholder text and before the alert().
-     * Return false from this function to prevent the alert dialog.
-     *
-     * @return {Boolean} when false is returned it will prevent default error behavior
-     */
-    onFileUploadError: function () {
-        return true;
-    },
-    /**
-     * When a file has succesfully been uploaded
-     */
-    onFileUploaded: function () { }
-});
-
-
-/***/ }),
-/* 3 */,
-/* 4 */
+/* 2 */,
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
