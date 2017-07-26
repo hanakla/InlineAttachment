@@ -453,22 +453,18 @@ var InlineAttachment = (function () {
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _jquery = __webpack_require__(6);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(function () {
-
-  var root = this;
-
-  root.InlineAttachment = root.InlineAttachment || {};
-  root.InlineAttachment.jQuery = _jquery2.default;
-
-  if (true) {
-    exports.jQuery = _jquery2.default;
-  }
+(function (root) {
+  var jQuery = root.jQuery;
 
   if (typeof jQuery === 'undefined') {
     if (true) {
@@ -479,14 +475,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   }
 
   jQuery.fn.inlineAttachment = function (options) {
-
     $(this).each(function () {
       new _jquery2.default(this, options);
     });
 
     return this;
   };
-}).call(typeof window !== 'undefined' ? window : undefined);
+})(typeof window !== 'undefined' ? window : undefined);
+
+exports.default = _jquery2.default;
 
 /***/ }),
 /* 6 */
@@ -500,7 +497,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var jQueryInlineAttachment = (function () {
     function jQueryInlineAttachment(instance, options) {
-        this.instance = $(instance);
+        this.instance = instance;
         this.options = options;
         this.bind();
     }
