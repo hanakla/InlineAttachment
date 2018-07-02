@@ -32,7 +32,7 @@ export default class InlineAttachment {
   private settings: InlineAttachmentSettings
   private editor: IEditor
   private filenameTag: string
-  private lastValue: string
+  private lastValue: string | null
 
   constructor(instance: IEditor, options: Partial<InlineAttachmentSettings>)
   {
