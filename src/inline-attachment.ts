@@ -104,8 +104,10 @@ export default class InlineAttachment {
         this.onFileUploadError(xhr);
       }
     };
-    if (settings.beforeFileUpload(xhr) !== false) {
-      xhr.send(formData);
+
+    if (settings.beforeFileUpload) {
+      var result = settings.beforeFileUpload!(xhr);
+      result !== false && xhr.send(formData);
     }
 
     return xhr;
@@ -136,7 +138,12 @@ export default class InlineAttachment {
    */
   public onFileUploadResponse(xhr)
   {
-    if (this.settings.onFileUploadResponse.call(this, xhr) !== false) {
+    if (!this.settings.onFileUploadResponse) {
+      return;
+    }
+    var response = this.settings.onFileUploadResponse.call(this, xhr);
+
+    if (response !== false) {
       var result = JSON.parse(xhr.responseText),
         filename = result[this.settings.jsonFieldName];
 
@@ -149,7 +156,7 @@ export default class InlineAttachment {
         }
         var text = this.editor.getValue().replace(this.lastValue, newValue);
         this.editor.setValue(text);
-        this.settings.onFileUploaded.call(this, filename);
+        this.settings.onFileUploaded && this.settings.onFileUploaded.call(this, filename);
       }
     }
   }
@@ -163,6 +170,10 @@ export default class InlineAttachment {
    */
   public onFileUploadError(xhr)
   {
+    if (!this.settings.onFileUploadError) {
+      return;
+    }
+
     if (this.settings.onFileUploadError.call(this, xhr) !== false) {
       const text = this.editor.getValue().replace(this.lastValue, this.settings.errorText);
       this.editor.setValue(text);
@@ -177,6 +188,10 @@ export default class InlineAttachment {
    */
   public onFileInserted(file)
   {
+    if (!this.settings.onFileReceived) {
+      return;
+    }
+
     if (this.settings.onFileReceived.call(this, file) !== false) {
       this.lastValue = this.settings.progressText;
       this.editor.insertValue(this.lastValue);

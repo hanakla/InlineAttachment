@@ -70,7 +70,7 @@ export default class Utils {
       range.moveStart('character', -el.value.length);
       strPos = range.text.length;
     } else if (browser === "ff") {
-      strPos = el.selectionStart;
+      strPos = el.selectionStart || 0;
     }
 
     var front = (el.value).substring(0, strPos);
