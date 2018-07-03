@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const {Plugin: CommonShakePlugin} = require('webpack-common-shake');
 const path = require('path');
 const merge = require('webpack-merge');
 const ENV = process.env.NODE_ENV || 'development';
@@ -37,7 +36,6 @@ const base = {
     ]
   },
   plugins: [
-    new CommonShakePlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
   ]
