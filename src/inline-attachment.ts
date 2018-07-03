@@ -106,7 +106,7 @@ export default class InlineAttachment {
     };
 
     if (settings.beforeFileUpload) {
-      var result = settings.beforeFileUpload!(xhr);
+      var result = settings.beforeFileUpload(xhr);
       result !== false && xhr.send(formData);
     }
 
@@ -139,11 +139,10 @@ export default class InlineAttachment {
   public onFileUploadResponse(xhr)
   {
     if (!this.settings.onFileUploadResponse) {
-      return;
+      return
     }
-    var response = this.settings.onFileUploadResponse.call(this, xhr);
 
-    if (response !== false) {
+    if (this.settings.onFileUploadResponse.call(this, xhr) !== false) {
       var result = JSON.parse(xhr.responseText),
         filename = result[this.settings.jsonFieldName];
 
