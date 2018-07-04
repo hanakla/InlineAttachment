@@ -1,4 +1,4 @@
-# Inline Attachment 5.0.1 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment)
+# Inline Attachment 5.0.2 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment)
 
 Adds upload functionality to a textarea instance by either drag-dropping or pasting (only in chrome) an image inside it.
 
