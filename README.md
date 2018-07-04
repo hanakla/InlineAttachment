@@ -1,4 +1,4 @@
-# Inline Attachment 5.0.2 [![Master Branch Build Status](https://api.travis-ci.org/Rovak/InlineAttachment.png?branch=master)](http://travis-ci.org/Rovak/InlineAttachment)
+# Inline Attachment 5.0.2 [![Master Branch Build Status](https://api.travis-ci.org/ra-gg/InlineAttachment.png?branch=master)](http://travis-ci.org/ra-gg/InlineAttachment)
 
 Adds upload functionality to a textarea instance by either drag-dropping or pasting (only in chrome) an image inside it.
 
@@ -16,7 +16,7 @@ It's similar to pasting images in Github.
 
 ## Getting started
 
-The latest versions are available [here](https://github.com/Rovak/InlineAttachment/tree/master/dist)
+The latest versions are available [here](https://github.com/ra-gg/InlineAttachment/tree/master/dist)
 
 **NPM**
 
@@ -51,4 +51,4 @@ This should build the project and the files will appear in the `dist/` folder
 
 ## Changelog
 
-[See Github releases](https://github.com/Rovak/InlineAttachment/releases)
+[See Github releases](https://github.com/ra-gg/InlineAttachment/releases)
