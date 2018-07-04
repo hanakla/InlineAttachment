@@ -142,6 +142,10 @@ export default class InlineAttachment {
       return
     }
 
+    if (!this.lastValue) {
+      return;
+    }
+
     if (this.settings.onFileUploadResponse.call(this, xhr) !== false) {
       var result = JSON.parse(xhr.responseText),
         filename = result[this.settings.jsonFieldName];
@@ -170,6 +174,10 @@ export default class InlineAttachment {
   public onFileUploadError(xhr)
   {
     if (!this.settings.onFileUploadError) {
+      return;
+    }
+
+    if (!this.lastValue) {
       return;
     }
 
