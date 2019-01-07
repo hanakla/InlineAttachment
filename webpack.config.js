@@ -5,7 +5,7 @@ const ENV = process.env.NODE_ENV || 'development';
 const isDev = ENV === 'development';
 
 const base = {
-  watch: isDev,
+  mode: ENV,
   devtool: isDev ? 'inline-source-map' : '',
   output: {
     path: __dirname + "/dist",
